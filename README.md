@@ -4,10 +4,7 @@ Overview
 This project is a group chat web application that allows multiple users to communicate in real time.
 The application provides user authentication, messaging functionality and file sharing between users.
 
-The backend is implemented using C# .NET Web API, while the frontend is built with HTML, CSS and JavaScript.
-User authentication is handled by AWS Cognito.
-
-This project was created to practice backend development, REST API design and cloud authentication integration.
+<img width="732" height="911" alt="chat_window" src="https://github.com/user-attachments/assets/b2e8f907-5df8-4abf-ac91-29a918f1e11c" />
 
 **Techstack**
 
