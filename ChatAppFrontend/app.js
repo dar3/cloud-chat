@@ -31,7 +31,7 @@ async function fetchMessages() {
             lastMessageCount = messages.length;
         }
     } catch (error) {
-        console.error('Błąd pobierania wiadomości:', error);
+        console.error('Error fetching message:', error);
     }
 }
 
@@ -100,7 +100,7 @@ async function uploadFile() {
         fetchMessages();
 
     } catch (error) {
-        console.error('Błąd przesyłania pliku:', error);
+        console.error('Error sending file:', error);
     }
 }
 

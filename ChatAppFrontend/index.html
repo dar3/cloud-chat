@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prosty Chat Grupowy</title>
+    <title>Fast Group Chat</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="chat-container">
-        <h2>Chat Grupowy</h2>
-        <input type="text" id="usernameInput" placeholder="Twój nick" class="input-field">
+        <h2>Fast Group Chat</h2>
+        <input type="text" id="usernameInput" placeholder="Your nickname" class="input-field">
         
         <div id="chatBox" class="chat-box"></div>
 
         <div class="input-area">
-            <input type="text" id="messageInput" placeholder="Napisz wiadomość..." class="input-field">
-            <button onclick="sendMessage()" class="btn">Wyślij</button>
+            <input type="text" id="messageInput" placeholder="Enter a message..." class="input-field">
+            <button onclick="sendMessage()" class="btn">Send</button>
         </div>
 
         <div class="input-area file-area">
             <input type="file" id="fileInput" class="input-field">
-            <button onclick="uploadFile()" class="btn file-btn">Wyślij plik</button>
+            <button onclick="uploadFile()" class="btn file-btn">Send file</button>
         </div>
     </div>
     <script src="app.js"></script>
