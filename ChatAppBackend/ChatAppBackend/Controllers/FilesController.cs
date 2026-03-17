@@ -1,5 +1,6 @@
 ﻿using ChatAppBackend.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace ChatAppBackend.Controllers
 {
@@ -11,6 +12,7 @@ namespace ChatAppBackend.Controllers
 
         public FilesController()
         {
+            // Create the "Uploads" directory in the current working directory if it doesn't exist
             _uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
             if (!Directory.Exists(_uploadFolder))
             {
@@ -18,13 +20,14 @@ namespace ChatAppBackend.Controllers
             }
         }
 
-        // 3. POST: Sending file to server
+        // POST for uploading a file
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadFile(IFormFile file, [FromForm] string username)
+        public async Task<IActionResult> UploadFile([FromForm] IFormFile file, [FromForm] string? username)
         {
             if (file == null || file.Length == 0)
-                return BadRequest("Brak pliku.");
+                return BadRequest("Brak pliku do wgrania.");
 
+            // Generating a unique file name to avoid conflicts
             var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
             var filePath = Path.Combine(_uploadFolder, fileName);
 
@@ -33,19 +36,22 @@ namespace ChatAppBackend.Controllers
                 await file.CopyToAsync(stream);
             }
 
-            // Giving back the URL to access the file
+            // Generating the URL for downloading the file
             var fileUrl = $"/api/files/download/{fileName}";
+
             return Ok(new { url = fileUrl, originalName = file.FileName });
         }
 
-        // 4. GET: Downloading file from server
+        // GET for downloading a file
         [HttpGet("download/{fileName}")]
         public IActionResult DownloadFile(string fileName)
         {
             var filePath = Path.Combine(_uploadFolder, fileName);
-            if (!System.IO.File.Exists(filePath))
-                return NotFound();
 
+            if (!System.IO.File.Exists(filePath))
+                return NotFound("Plik nie istnieje na serwerze.");
+
+            // Returning the file as a download
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes, "application/octet-stream", fileName);
         }
