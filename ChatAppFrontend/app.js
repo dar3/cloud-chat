@@ -4,7 +4,6 @@ const API_URL = 'http://localhost:5198/api';
 const chatBox = document.getElementById('chatBox');
 let lastMessageCount = 0;
 
-// Downloading messages (GET 1)
 async function fetchMessages() {
     try {
         const response = await fetch(`${API_URL}/messages`);
@@ -121,6 +120,6 @@ async function uploadFile() {
         alert("There is error uploading file. Check console");
     }
 }
-// Refresh chat every 2 seconds (prosty Polling)
+
 setInterval(fetchMessages, 2000);
 fetchMessages();
