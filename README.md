@@ -23,3 +23,8 @@ Cloud:
 - AWS Cognito (in progress)
 - S3 Buckets for data storage (in progress)
 
+Screens:
+- Main chat screen - DONE
+- Register screen (in progress)
+- Login screen (in progress)
+
