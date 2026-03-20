@@ -4,7 +4,8 @@ Overview
 This project is a group chat web application that allows multiple users to communicate in real time.
 The application provides user authentication, messaging functionality and file sharing between users.
 
-<img width="672" height="882" alt="chat_window2" src="https://github.com/user-attachments/assets/be9b2dd0-0515-46cb-a80c-90cc365b3bae" />
+
+<img width="500" height="657" alt="chat_window2" src="https://github.com/user-attachments/assets/9b4cdc8d-5389-4d5a-aca4-cf7e27348f55" />
 
 
 **Techstack**
