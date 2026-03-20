@@ -71,10 +71,10 @@ async function sendMessage() {
 async function uploadFile() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
-    const username = document.getElementById('usernameInput').value || 'Anonim';
+    const username = document.getElementById('usernameInput').value || 'Anonymous';
 
     if (!file) {
-        alert("Choose a file before clicking send file'!");
+        alert("Choose a file before trying to send it!");
         return;
     }
 
@@ -88,8 +88,9 @@ async function uploadFile() {
             body: formData
         });
         
-        if (!uploadResponse.ok) {
-            throw new Error(`Server returned error: ${uploadResponse.status}`);
+       if (!uploadResponse.ok) {
+            const errorText = await uploadResponse.text();
+            throw new Error(`Server returned error: ${uploadResponse.status}. Details: ${errorText}`);
         }
 
         const result = await uploadResponse.json();

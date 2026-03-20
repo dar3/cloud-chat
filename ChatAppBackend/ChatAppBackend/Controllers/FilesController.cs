@@ -1,9 +1,18 @@
-﻿using ChatAppBackend.Models;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ChatAppBackend.Controllers
 {
+    // DTO class to strictly bind the multipart/form-data request
+    public class FileUploadRequest
+    {
+        public IFormFile File { get; set; }
+        public string Username { get; set; } = "Anonymous";
+    }
+
     [Route("api/[controller]")]
     [ApiController]
     public class FilesController : ControllerBase
@@ -12,7 +21,6 @@ namespace ChatAppBackend.Controllers
 
         public FilesController()
         {
-            // Create the "Uploads" directory in the current working directory if it doesn't exist
             _uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads");
             if (!Directory.Exists(_uploadFolder))
             {
@@ -20,38 +28,49 @@ namespace ChatAppBackend.Controllers
             }
         }
 
-        // POST for uploading a file
+        // POST: Upload file to the server
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadFile([FromForm] IFormFile file, [FromForm] string? username)
+        public async Task<IActionResult> UploadFile([FromForm] FileUploadRequest request)
         {
-            if (file == null || file.Length == 0)
-                return BadRequest("Brak pliku do wgrania.");
-
-            // Generating a unique file name to avoid conflicts
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(_uploadFolder, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            // The [ApiController] attribute automatically handles basic validation,
+            // but double-check if the file has content.
+            if (request.File == null)
             {
-                await file.CopyToAsync(stream);
+                return BadRequest(new { error = "No file selected for upload." });
             }
 
-            // Generating the URL for downloading the file
-            var fileUrl = $"/api/files/download/{fileName}";
+            try
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(request.File.FileName);
+                var filePath = Path.Combine(_uploadFolder, fileName);
 
-            return Ok(new { url = fileUrl, originalName = file.FileName });
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await request.File.CopyToAsync(stream);
+                }
+
+                var fileUrl = $"/api/files/download/{fileName}";
+
+                return Ok(new { url = fileUrl, originalName = request.File.FileName });
+            }
+            catch (Exception ex)
+            {
+                // Return 500 Internal Server Error for actual code exceptions
+                return StatusCode(500, new { error = $"Internal server error: {ex.Message}" });
+            }
         }
 
-        // GET for downloading a file
+        // GET: Download a multimedia file
         [HttpGet("download/{fileName}")]
         public IActionResult DownloadFile(string fileName)
         {
             var filePath = Path.Combine(_uploadFolder, fileName);
 
             if (!System.IO.File.Exists(filePath))
-                return NotFound("Plik nie istnieje na serwerze.");
+            {
+                return NotFound(new { error = "File not found on the server." });
+            }
 
-            // Returning the file as a download
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes, "application/octet-stream", fileName);
         }
