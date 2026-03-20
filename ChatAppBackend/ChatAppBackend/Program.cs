@@ -1,3 +1,5 @@
+using Amazon.S3;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // each source is available as a service
@@ -12,6 +14,9 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
+
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+builder.Services.AddAWSService<IAmazonS3>();
 
 var app = builder.Build();
 
