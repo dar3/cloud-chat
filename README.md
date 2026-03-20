@@ -4,7 +4,10 @@ Overview
 This project is a group chat web application that allows multiple users to communicate in real time.
 The application provides user authentication, messaging functionality and file sharing between users.
 
-<img width="350" height="435" alt="chat_window" src="https://github.com/user-attachments/assets/b2e8f907-5df8-4abf-ac91-29a918f1e11c" />
+
+<img width="500" height="657" alt="chat_window2" src="https://github.com/user-attachments/assets/9b4cdc8d-5389-4d5a-aca4-cf7e27348f55" />
+
+<br> <br>
 
 **Techstack**
 
@@ -22,4 +25,9 @@ Cloud:
 - AWS EC2
 - AWS Cognito (in progress)
 - S3 Buckets for data storage (in progress)
+
+Screens:
+- Main chat screen - DONE
+- Register screen (in progress)
+- Login screen (in progress)
 
