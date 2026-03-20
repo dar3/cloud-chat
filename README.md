@@ -7,6 +7,7 @@ The application provides user authentication, messaging functionality and file s
 
 <img width="500" height="657" alt="chat_window2" src="https://github.com/user-attachments/assets/9b4cdc8d-5389-4d5a-aca4-cf7e27348f55" />
 
+<br> <br>
 
 **Techstack**
 
