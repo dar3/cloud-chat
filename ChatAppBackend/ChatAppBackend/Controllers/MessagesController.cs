@@ -2,12 +2,14 @@
 using ChatAppBackend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using System;
-using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ChatAppBackend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MessagesController : ControllerBase
@@ -46,7 +48,13 @@ namespace ChatAppBackend.Controllers
 
             try
             {
-                // Reset ID so the database can auto-increment it natively
+                // Extract the username directly from the Cognito JWT token claims
+                var usernameClaim = User.FindFirst("username")?.Value
+                                 ?? User.FindFirst("cognito:username")?.Value
+                                 ?? "UnknownUser";
+
+                // Override whatever the client sent
+                message.Username = usernameClaim;
                 message.Id = 0;
                 message.Timestamp = DateTime.Now.ToString("HH:mm:ss");
 

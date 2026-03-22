@@ -6,15 +6,21 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace ChatAppBackend.Controllers
 {
     public class FileUploadRequest
     {
         public IFormFile File { get; set; }
-        public string Username { get; set; } = "Anonymous";
     }
 
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FilesController : ControllerBase
@@ -56,7 +62,11 @@ namespace ChatAppBackend.Controllers
 
                 var fileUrl = $"/api/files/download/{fileName}";
 
-                return Ok(new { url = fileUrl, originalName = request.File.FileName });
+                var usernameClaim = User.FindFirst("username")?.Value
+                                 ?? User.FindFirst("cognito:username")?.Value
+                                 ?? "UnknownUser";
+
+                return Ok(new { url = fileUrl, originalName = request.File.FileName, uploadedBy = usernameClaim });
             }
             catch (AmazonS3Exception s3Ex)
             {
