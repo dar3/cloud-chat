@@ -3,26 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast Group Chat</title>
+    <title>Secure Group Chat</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
 </head>
 <body>
-    <div class="chat-container">
-        <h2>Fast Group Chat</h2>
-        <input type="text" id="usernameInput" placeholder="Your nickname" class="input-field">
+    <div id="authContainer" class="container">
+        <h2>Authentication</h2>
+        <div class="input-area">
+            <input type="text" id="authUsername" placeholder="Username" class="input-field">
+            <input type="password" id="authPassword" placeholder="Password" class="input-field">
+            <input type="email" id="authEmail" placeholder="Email (for registration only)" class="input-field">
+        </div>
+        <div class="auth-buttons">
+            <button onclick="login()" class="btn">Login</button>
+            <button onclick="register()" class="btn auth-btn-secondary">Register</button>
+        </div>
+        
+        <div id="verificationSection" style="display: none; margin-top: 15px;">
+            <input type="text" id="verificationCode" placeholder="Verification Code" class="input-field">
+            <button onclick="confirmRegistration()" class="btn auth-btn-secondary">Confirm Account</button>
+        </div>
+        <p id="authMessage" class="message-text"></p>
+    </div>
+
+    <div id="chatContainer" class="container" style="display: none;">
+        <div class="header-area">
+            <h2>Group Chat</h2>
+            <button onclick="logout()" class="btn auth-btn-secondary">Logout</button>
+        </div>
         
         <div id="chatBox" class="chat-box"></div>
 
         <div class="input-area">
-            <input type="text" id="messageInput" placeholder="Enter a message..." class="input-field">
+            <input type="text" id="messageInput" placeholder="Type a message..." class="input-field">
             <button onclick="sendMessage()" class="btn">Send</button>
         </div>
 
         <div class="input-area file-area">
             <input type="file" id="fileInput" class="input-field">
-            <button onclick="uploadFile()" class="btn file-btn">Send file</button>
+            <button onclick="uploadFile()" class="btn file-btn">Upload File</button>
         </div>
     </div>
+    
     <script src="app.js"></script>
 </body>
 </html>

@@ -1,158 +1,81 @@
-:root {
-    --primary-color: #4f46e5;
-    --filebtn-color: orange;
-    --primary-hover: #4338ca;
-    --secondary-color: #10b981;
-    --secondary-hover: #059669;
-    --bg-color: #f3f4f6;
-    --chat-bg: #ffffff;
-    --message-bg: #e0e7ff;
-    --text-dark: #1f2937;
-    --border-color: #e5e7eb;
-}
-
 body {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-dark);
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
     padding: 20px;
-    box-sizing: border-box;
 }
 
-.chat-container {
+.container {
     width: 100%;
-    max-width: 450px;
-    background: var(--chat-bg);
-    padding: 24px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.02);
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: var(--text-dark);
-    text-align: center;
-    font-weight: 600;
-}
-
-#usernameInput {
-    margin-bottom: 16px;
+.header-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .chat-box {
-    height: 350px;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 16px;
-    margin: 16px 0;
+    height: 300px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
     overflow-y: auto;
-    background: #f9fafb;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-
-.chat-box::-webkit-scrollbar {
-    width: 6px;
-}
-.chat-box::-webkit-scrollbar-thumb {
-    background-color: #cbd5e1;
-    border-radius: 10px;
+    background: #fafafa;
 }
 
 .message {
-    padding: 10px 14px;
-    background: var(--message-bg);
-    border-radius: 12px 12px 12px 2px; 
-    font-size: 0.95rem;
-    line-height: 1.4;
-    max-width: 85%;
-    align-self: flex-start;
-    color: var(--text-dark);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    margin-bottom: 8px;
+    padding: 8px;
+    background: #e1f5fe;
+    border-radius: 4px;
 }
 
 .input-field {
     width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    padding: 8px;
+    margin-bottom: 10px;
     box-sizing: border-box;
-}
-
-.input-field:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
 .input-area {
     display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.input-area.file-area {
-    margin-bottom: 0;
-}
-
-
-input[type="file"] {
-    padding: 9px;
-    background: white;
-    cursor: pointer;
+.file-area, .auth-buttons {
+    flex-direction: row;
+    margin-top: 10px;
 }
 
 .btn {
-    padding: 12px 20px;
-    background: var(--primary-color);
+    padding: 8px 15px;
+    background: #007bff;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-weight: 600;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
-    white-space: nowrap;
-}
-
-.btn:hover {
-    background: var(--primary-hover);
-}
-
-.btn:active {
-    transform: translateY(1px);
+    flex: 1;
 }
 
 .file-btn {
-    background: var(--secondary-color);
+    background: #28a745;
 }
 
-.file-btn:hover {
-    background: var(--secondary-hover);
+.auth-btn-secondary {
+    background: #6c757d;
 }
 
-input[type="file"]::file-selector-button {
-    padding: 8px 16px;
-    background-color: var(--filebtn-color); 
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-right: 12px;
-    transition: background-color 0.2s ease;
-}
-
-input[type="file"]::file-selector-button:hover {
-    background-color: var(--primary-hover);
+.message-text {
+    color: #d9534f;
+    font-size: 0.9em;
+    margin-top: 10px;
 }
