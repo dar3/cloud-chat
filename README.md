@@ -21,7 +21,7 @@ Frontend:
 - CSS
 - JavaScript
 
-Cloud:
+Cloud using IaC (Terraform):
 - AWS EC2
 - AWS Cognito
 - S3 Buckets for data storage
