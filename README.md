@@ -23,8 +23,8 @@ Frontend:
 
 Cloud:
 - AWS EC2
-- AWS Cognito (in progress)
-- S3 Buckets for data storage (in progress)
+- AWS Cognito
+- S3 Buckets for data storage
 
 Screens:
 - Main chat screen - DONE
